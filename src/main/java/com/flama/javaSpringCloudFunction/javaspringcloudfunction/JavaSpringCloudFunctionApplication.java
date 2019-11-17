@@ -20,13 +20,37 @@ public class JavaSpringCloudFunctionApplication {
 	}
 
 	@Bean
-	public Function<Map, Map> hello(){
+	public Function<Input, Output> hello(){
 		return input -> {
-			log.info("hello with input: {}", input);
-			Map output = new HashMap();
-			output.put("greeting", "Hello " + input.get("name") + " from a map");
+			log.info("calling hello with input {}", input);
+			Output output = new Output();
+			output.setGreeting("Hello " + input.getName() + ", from custom type");
 			return output;
 		};
 	}
 
+}
+
+class Input {
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+}
+
+class Output {
+	private String greeting;
+
+	public String getGreeting() {
+		return greeting;
+	}
+
+	public void setGreeting(String greeting) {
+		this.greeting = greeting;
+	}
 }
